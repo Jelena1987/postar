@@ -1,0 +1,472 @@
+{
+	"info": {
+		"_postman_id": "3f663e13-8699-4043-adc6-89ca47ce90c5",
+		"name": "New Collection 1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsonData=pm.response.json();\r",
+							"pm.environment.set(\"token\", jsonData.token) "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"jelenatest11@gmail.com\",\r\n    \"password\": \"2005makstanja\",\r\n    \"g-recaptcha-response\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v2/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create task",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"let jsonData=pm.response.json();\r",
+							"pm.environment.set(\"taskId\", jsonData.id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"item\": {\r\n        \"name\": \"task\",\r\n        \"board_id\": 7868,\r\n        \"sprint_id\": 12450,\r\n        \"sprint_backlog_column_id\": null,\r\n        \"priority_id\": 2,\r\n        \"parent_id\": null,\r\n        \"labels\": [],\r\n        \"doers\": [],\r\n        \"reviewers\": [],\r\n        \"type_id\": 1,\r\n        \"points_id\": null,\r\n        \"taskvalue_id\": 1,\r\n        \"checklists\": [],\r\n        \"blocking_task_id\": null\r\n    },\r\n    \"prev\": null,\r\n    \"next\": null,\r\n    \"board_id\": 7868,\r\n    \"isOnSprint\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v2/tasks",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v2/tasks/{{taskId}}/all-data",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"tasks",
+						"{{taskId}}",
+						"all-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "description",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 10828,\r\n    \"name\": \"task\",\r\n    \"description\": \"description\",\r\n    \"points_id\": null,\r\n    \"priority_id\": 2,\r\n    \"taskvalue_id\": 1,\r\n    \"type_id\": 1,\r\n    \"parent_id\": null,\r\n    \"board_id\": 7868,\r\n    \"sprint_id\": 12450,\r\n    \"sprint_backlog_column_id\": 23629,\r\n    \"blocking_task_id\": null,\r\n    \"checklist_item_id\": null,\r\n    \"doers\": [],\r\n    \"reviewers\": [],\r\n    \"labels\": [],\r\n    \"subtasks\": [],\r\n    \"checklists\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v2/tasks/{{taskId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"tasks",
+						"{{taskId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "komentar",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"body\": \"komentar\",\r\n    \"published\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v2/tasks/{{taskId}}/comments",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"tasks",
+						"{{taskId}}",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "pas.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/v2/tasks/{{taskId}}/files?group=task",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"tasks",
+						"{{taskId}}",
+						"files"
+					],
+					"query": [
+						{
+							"key": "group",
+							"value": "task"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "done",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"change_sprint_id\": false,\r\n    \"tasks\": [\r\n        {\r\n            \"id\":{{taskId}},\r\n            \"board_id\": 7868\r\n        }\r\n    ],\r\n    \"sprint_id\": 12452,\r\n    \"prev\": null,\r\n    \"next\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v2/boards/7868/update-tasks-order",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"boards",
+						"7868",
+						"update-tasks-order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "to do",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"change_sprint_id\": false,\r\n    \"tasks\": [\r\n        {\r\n            \"id\": {{taskId}},\r\n            \"board_id\": 7868\r\n        }\r\n    ],\r\n    \"sprint_id\": 12450,\r\n    \"prev\": null,\r\n    \"next\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v2/boards/7868/update-tasks-order",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"boards",
+						"7868",
+						"update-tasks-order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v2/tasks/{{taskId}}?boardId=7868",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"tasks",
+						"{{taskId}}"
+					],
+					"query": [
+						{
+							"key": "boardId",
+							"value": "7868"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
